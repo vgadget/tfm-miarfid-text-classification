@@ -1,0 +1,8 @@
+.ipynb_checkpoints
+.vscode
+*.bin
+Experiments/*/data
+errors.txt
+output.txt
+*.out
+.DS_Store

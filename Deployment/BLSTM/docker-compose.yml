@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  news-classifier:
+    platform: linux/x86_64
+    restart: always
+    build: ./pytorch_server
+    volumes:
+      - ./pytorch_server/cache:/code/cache
+    environment:
+      - PYTHONUNBUFFERED=1 # flush stdout/stderr immediately
+    ports:
+      - "8080:8080"
+    command: sh -c "python3 main.py"
+  
+  web-server:
+    image: php:7.2.30-apache
+    restart: always
+    ports:
+      - "80:80"
+    links:
+      - news-classifier
+    volumes:
+      - ./web:/var/www/html
